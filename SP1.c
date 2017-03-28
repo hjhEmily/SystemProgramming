@@ -1,67 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define TEST "test.txt"
 
-typedef struct store{
- int num;
- char *word;
-}Store;
+typedef struct Word{
+ char word[10];
+}word;
 
-int Test(Store *t_w);
-void Split(char *buf);
+int F(word *F_w);
+void S(word *S_w, char *buf);
 
 void main()
 {
- int i;
- Store *m_w=(Store*)malloc(sizeof(Store));//r구조체틀만들어주기
- if(Test(m_w))
-   printf("test 파일열기가 실패되어 종료합니다\n");
+ word *m_w=(word *)malloc(sizeof(word));
+ if(F(m_w))
+  printf("실패");
  else
-   printf("test 파일을 정상적으로 읽었습니다\n");
- /*for(i=0; i<(m_w->num); i++)
-  printf("%s\n", (m_w+i)->word);*/
+  printf("성공");
 }
 
-//파일열고 Split함수부르기
-int Test(Store *t_w)
+int F(word *F_w)
 {
  FILE *f1;
- char buf[500];//읽어온한줄 저장임시버퍼
-  
- f1=fopen(TEST,"r");
+ char buf[100];
+ f1=fopen("token.txt","r");
  if(f1==NULL) {
   puts("파일오픈 실패");
   return 1;
  }
-
- //구조체에 넣기
  while(!feof(f1))
  {
-  fgets(buf,sizeof(buf),f1);//파일에서 한줄읽어들이기
-  Split(buf);//한줄쪼개기
+  fgets(buf,sizeof(buf),f1);
+  S(F_w,buf);
  }
- 
- return 0;//true
+ return 0;
 }
 
-//한줄쪼개고 구조체에 넣기      .이랑 10진수변환 아직안함
-void Split(Store *s_w,char *buf)
+void S(word *S_w,char *buf)
 {
+ int i=0;//구조체 갯수
+ int j;
+ //printf("%s",buf);
  char *token=strtok(buf,"\t");
+ //sprintf((S_w+i)->word,"%s",token);
+ //printf("%s\n",token);
+ //i++;
+ /*token=strtok(NULL,"\t");
  printf("%s\n",token);
- (s_w+(s_w->num))->word=(char *)malloc(sizeof(strlen(token)+1));//한단어길이만큼 공간할당
- (s_w+(s_w->num))->word=(char *)calloc(0,strlen(token)+1);//할당한공간 1로초기화
- sprintf((s_w+(s_w->num))->word,"%s",token);//문자열로 token값을 구조체에 넣어라
- s_w->num++;
-
+ token=strtok(NULL,"\t");
+ printf("%s\n",token);
+ token=strtok(NULL,",");
+ printf("%s\n",token);*/
  while(token)
  {
-  token=strtok(NULL," \t\n,'");
-  (s_w+(s_w->num))->word=(char *)malloc(sizeof(strlen(token)+1));//한단어길이만큼 공간할당
-  //(s_w+(s_w->num))->word=(char *)calloc(0,strlen(token)+1);//할당한공간 1로초기화    s_w->num때문에 빼줌
-  sprintf((s_w+(s_w->num))->word,"%s",token);//문자열로 token값을 구조체에 넣어라
-  s_w->num++;
+  sprintf((S_w+i)->word,"%s",token);
+  //printf("%s\n",token);
+  sprintf((S_w+i)->word,"%s",token);
+  token=strtok(NULL,"\t,\n'");
+  //sprintf((S_w+i)->word,"%s",token);
+  i++;
+  //printf("%s\n",token);
  }
+ for(j=0; j<i; j++)
+ printf("%s\n",(S_w+j)->word);
 } 
-
