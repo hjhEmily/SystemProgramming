@@ -35,30 +35,27 @@ int F(word *F_w)
  return 0;
 }
 
-void S(word *S_w,char *buf)
+void S(word *S_w,char *buf)//.이랑 16->10진수로 변환 해야함
 {
  int i=0;//구조체 갯수
  int j;
- //printf("%s",buf);
- char *token=strtok(buf,"\t");
- //sprintf((S_w+i)->word,"%s",token);
- //printf("%s\n",token);
- //i++;
- /*token=strtok(NULL,"\t");
- printf("%s\n",token);
- token=strtok(NULL,"\t");
- printf("%s\n",token);
- token=strtok(NULL,",");
- printf("%s\n",token);*/
- while(token)
+ char *token;
+ if(buf[0]=='.')//.을넣어야함
  {
+  token=buf;
   sprintf((S_w+i)->word,"%s",token);
-  //printf("%s\n",token);
-  sprintf((S_w+i)->word,"%s",token);
-  token=strtok(NULL,"\t,\n'");
-  //sprintf((S_w+i)->word,"%s",token);
   i++;
-  //printf("%s\n",token);
+ }
+ 
+ else
+ {
+  token=strtok(buf,"\t");
+  while(token)
+  {
+   sprintf((S_w+i)->word,"%s",token);
+   token=strtok(NULL,"\t,\n'");
+   i++;
+  }
  }
  for(j=0; j<i; j++)
  printf("%s\n",(S_w+j)->word);
