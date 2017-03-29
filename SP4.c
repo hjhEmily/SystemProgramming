@@ -35,21 +35,26 @@ int F(word *F_w)
  return 0;
 }
 
-void S(word *S_w,char *buf)//.이랑 16->10진수로 변환 해야함
+void S(word *S_w,char *buf)
 {
  int i=0;//구조체 갯수
  int j;
  char *token;
+ token=strtok(buf,"\t");
+
  if(buf[0]=='.')//.을넣어야함
  {
-  token=buf;
-  sprintf((S_w+i)->word,"%s",token);
+  sprintf((S_w+i)->word,"%c",'.');
   i++;
  }
  
+ //else if(token=="INPUT")//16->10진수로 변환, But char형일것이므로 16진수->10으로가야한다
+ //{
+ // //숫자를만나면 sprintf( ,"%d", )써서 변환
+ //}
+
  else
  {
-  token=strtok(buf,"\t");
   while(token)
   {
    sprintf((S_w+i)->word,"%s",token);
