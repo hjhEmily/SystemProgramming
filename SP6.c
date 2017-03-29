@@ -51,12 +51,16 @@ void Split(SP *word,char *buf)//한문장 쪼개기
 
  token=strtok(buf,"\t");
 
+ //i가문제임
+
  while(token)
  {
   sprintf((word+i)->name,"%s",token);
   token=strtok(NULL,"\t\n");
   sprintf((word+i)->instruction,"%s",token);
+  token=strtok(NULL,"\t\n");
   sprintf((word+i)->operand,"%s",token);
+  token=strtok(NULL,"\t\n");
   i++;
   
  }
@@ -69,26 +73,26 @@ void DotFind(char *buf, SP *word, int i)//.찾아서 .넣어주는 함수
  i=0;
  if(buf[0]=='.')//.을넣어야함
  {
-  //buf변수는 주소를 갖고있지아니한가?
   sprintf((word+i)->name,"%c",'.');
   i++;
  }
 }
 
-//void Store(char *token, char *buf, SP *word, int i)//쪼갠단어 구조체에 넣어주기  
-//{
-// i=0;
-//
-// token=strtok(buf,"\t");
-//
-// while(token)
-// {
-//  sprintf((word+i)->name,"%s",token);
-//  token=strtok(NULL,"\t\n");
-//  sprintf((word+i)->instruction,"%s",token);
-//  sprintf((word+i)->operand,"%s",token);
-//  i++;
-//  
-// }
-//
-//} 
+/*void Store(char *token, char *buf, SP *word, int i)
+{
+ i=0;
+
+ token=strtok(buf,"\t");
+ while(token)
+ {
+  sprintf((word+i)->name,"%s",token);
+  token=strtok(NULL,"\t\n");
+  sprintf((word+i)->instruction,"%s",token);
+  token=strtok(NULL,"\t\n");
+  sprintf((word+i)->operand,"%s",token);
+  token=strtok(NULL,"\t\n");
+  i++;
+  
+ }
+}*/
+ 
